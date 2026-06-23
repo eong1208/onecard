@@ -223,7 +223,7 @@ main{flex:1;display:flex;flex-direction:column;min-height:0;}
 </section>
 
 <!-- 대기실 -->
-<section id="screen-lobby" class="screen">
+<section id="screen-lobby" class="screen" style="overflow-y:auto;">
   <div class="panel">
     <h2>대기실</h2>
     <div class="room-code-box">
@@ -234,11 +234,9 @@ main{flex:1;display:flex;flex-direction:column;min-height:0;}
       <button id="btn-copy" class="sm">복사</button>
     </div>
     <ul id="lobby-players" class="player-list"></ul>
-    <button id="btn-start" class="btn btn-gold hidden">게임 시작</button>
+    <button id="btn-start" class="btn btn-gold hidden" style="width:100%;margin-bottom:10px;">게임 시작</button>
     <p id="lobby-hint" class="hint"></p>
-    <div style="margin-top:14px;">
-      <button id="btn-lobby-home" class="btn btn-out" style="width:100%;">🏠 홈으로 나가기</button>
-    </div>
+    <button id="btn-lobby-home" class="btn btn-out" style="width:100%;margin-top:12px;">🏠 홈으로 나가기</button>
   </div>
 </section>
 
@@ -932,14 +930,23 @@ function renderGame(){
   [...order.slice(myIdx+1),...order.slice(0,myIdx)].forEach(pid=>{
     const p=players.find(pl=>pl.id===pid); if(!p)return;
     const act=order[room.turn_index]===pid;
+    const wrap=document.createElement('div');
+    wrap.style.cssText='display:flex;flex-direction:column;align-items:center;gap:3px;';
+    if(act){
+      const arrow=document.createElement('div');
+      arrow.textContent='👇 차례';
+      arrow.style.cssText='font-size:13px;font-weight:900;color:var(--gold);';
+      wrap.appendChild(arrow);
+    }
     const div=document.createElement('div');
     div.className='opp'+(act?' active':'')+(p.bankrupt?' bankrupt':'');
     if(p.bankrupt){div.innerHTML=`<div class="opp-name">${esc(p.nickname)}</div><div style="font-size:12px;color:#ffaaaa;font-weight:800;margin-top:3px;">💸 파산</div>`;}
     else{
       const backs=Array.from({length:Math.min(p.hand.length,10)}).map(()=>'<span class="mb"></span>').join('');
-      div.innerHTML=`<div class="opp-name">${esc(p.nickname)}</div><div class="opp-cnt">${p.hand.length}장</div><div class="opp-backs">${backs}</div>${p.hand.length===1&&p.one_card_declared?'<div class="oc-badge">원카드!</div>':''}${act?'<div class="opp-arrow">👇 차례</div>':''}`;
+      div.innerHTML=`<div class="opp-name">${esc(p.nickname)}</div><div class="opp-cnt">${p.hand.length}장</div><div class="opp-backs">${backs}</div>${p.hand.length===1&&p.one_card_declared?'<div class="oc-badge">원카드!</div>':''}`;
     }
-    oppEl.appendChild(div);
+    wrap.appendChild(div);
+    oppEl.appendChild(wrap);
   });
   // 덱 & 버린 카드
   $$('deck-cnt').textContent=room.deck.length;
