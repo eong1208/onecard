@@ -302,15 +302,12 @@ main{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
 <!-- 게임 -->
 <section id="screen-game" class="screen">
   <!-- 상단 버튼바 -->
-  <div style="flex:0 0 auto;display:flex;gap:6px;align-items:center;padding:8px 10px 4px;flex-wrap:wrap;">
-    <div style="display:flex;gap:6px;margin-right:auto;">
-      <button id="btn-exit" class="icon-btn">🚪 나가기</button>
+  <div style="flex:0 0 auto;display:flex;gap:6px;align-items:center;padding:8px 10px 4px;">
+    <button id="btn-exit" class="icon-btn">🚪 나가기</button>
+    <div style="margin-left:auto;display:flex;gap:6px;">
       <button id="btn-chat-toggle" class="icon-btn">💬 채팅</button>
+      <button id="btn-help" class="icon-btn">❓ 룰</button>
     </div>
-    <button id="btn-sort" class="icon-btn on">🔀 자동정리</button>
-    <button id="btn-expand" class="icon-btn">⬆️ 펼치기</button>
-    <button id="btn-oc" class="icon-btn">🃏 원카드!</button>
-    <button id="btn-help" class="icon-btn">❓ 룰</button>
   </div>
 
   <!-- 타이머 바 -->
@@ -362,7 +359,11 @@ main{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
       <div class="my-area">
         <div class="my-hdr">
           <span id="my-lbl" class="my-name"></span>
-          <div class="hdr-btns"></div>
+          <div class="hdr-btns">
+            <button id="btn-sort" class="icon-btn on">🔀 자동정리</button>
+            <button id="btn-expand" class="icon-btn">⬆️ 펼치기</button>
+            <button id="btn-oc" class="icon-btn">🃏 원카드!</button>
+          </div>
         </div>
         <div class="hand-wrap">
           <div id="my-hand" class="hand"></div>
